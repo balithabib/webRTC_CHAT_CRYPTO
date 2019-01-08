@@ -69,7 +69,7 @@ var server = http.createServer(function (req, res) {
      });
    });
 
- }).listen(443);
+ }).listen(8080);
  
 
 var websocket = new ws({httpServer: server});
