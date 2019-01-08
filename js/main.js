@@ -22,7 +22,7 @@ window.sodium = {
       var user;
       // connexion à notre serveur de signalisation
       //var socket = new WebSocket("ws://52.47.102.211:8080");
-      var socket = new WebSocket("ws://52.47.102.211:8080");
+      var socket = new WebSocket("ws://52.47.102.211:443");
       
       // variables récuperer à l'aide des query selector 
       var divLogin = document.querySelector('#divlogin'); 
@@ -44,9 +44,9 @@ window.sodium = {
       var stream;
       //variable pour le channel
       var data_channel;
-      var date = new Date();
       //historique de chat
       var chat_history = {};
+      var date;
       //variable de configuration de l'objet RTCPeerconnection, on utilisent les serveurs stun/turn de Google  
       var configuration = { "iceServers": 
                     [{ "urls": "stun:stun2.1.google.com:19302" },
@@ -150,6 +150,7 @@ function encrypt(message, key){
                 } 
                  console.log(shared_tx_rx);
                 data_channel.send(JSON.stringify(data_chat));
+                date = new Date();
                 $('#messages').append("<div><p class='left'>"+date.getHours()+":"+date.getMinutes()+"</p><p class='send'>"+text_box.value+"</p></div>"); 
                 $('#messages').animate({scrollTop : $('#messages').prop('scrollHeight') }, 250);
                 text_box.value = '';
@@ -174,6 +175,7 @@ function encrypt(message, key){
                 //console.log(message_received['message']);
                 //let msg = decrypt(sodium.from_hex(message_received['message']), shared_tx_rx['sharedRx']);
                 let msg = message_received['message'];
+                date = new Date();
                 $('#messages').append("<div><p class='right'>"+date.getHours()+":"+date.getMinutes()+"</p><p class='resv'>"+msg+"</p></div>");
                 $('#messages').animate({scrollTop : $('#messages').prop('scrollHeight') }, 250);
               }
